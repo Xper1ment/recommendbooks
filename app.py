@@ -21,11 +21,7 @@ with open('./data/books.pkl','rb') as f:
 
 books = books.reset_index()
 
-<<<<<<< HEAD
 #cosine_sim_corpus = cosine_similarity(tfidf_matrix_corpus, tfidf_matrix_corpus)
-=======
-cosine_sim_corpus = cosine_similarity(tfidf_matrix_corpus, tfidf_matrix_corpus)
->>>>>>> effc0e4977cec5f8f697b4594a09853e7976861c
 
 def mergeDict(dict1, dict2):
     ''' Merge dictionaries and keep values of common keys in list'''
