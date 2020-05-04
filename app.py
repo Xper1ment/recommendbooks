@@ -8,11 +8,18 @@ from sklearn.metrics.pairwise import cosine_similarity
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+
+def default():
+    return "<h1>Welcome</h1>"
+
 with open('./data/book_model.pkl', 'rb') as f:
     tfidf_matrix_corpus = pickle.load(f)
 
 with open('./data/books.pkl','rb') as f:
     books = pickle.load(f)
+
+books = books.reset_index()
 
 cosine_sim_corpus = cosine_similarity(tfidf_matrix_corpus, tfidf_matrix_corpus)
 
@@ -51,11 +58,6 @@ def recommend_books():
     result = recomm_books(title)
     return jsonify(result)
 
-
-@app.route('/')
-
-def default():
-    return "<h1>Welcome</h1>"
 
 if __name__ == "__main__":
     app.run(threaded = True)    
