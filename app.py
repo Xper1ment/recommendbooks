@@ -14,10 +14,10 @@ CORS(app)
 def default():
     return "<h1>Welcome</h1>"
 
-with open('./data/books_model.pkl', 'rb') as f:
-    tfidf_matrix_corpus = pickle.load(f)
+with open('./data/book_model.pkl', 'rb') as f:
+    cosine_sim_corpus = pickle.load(f)
 
-with open('./data/books.pkl','rb') as f:
+with open('./data/book.pkl','rb') as f:
     books = pickle.load(f)
 
 
@@ -35,13 +35,12 @@ def mergeDict(dict1, dict2):
 
 # Build a 1-dimensional array with book titles
 titles = books['title']
-url = books['image_url']
+url = books['url']
 indices1 = pd.Series(books.index, index=books['title'])
 
 # Function that get book recommendations based on the cosine similarity score of books tags
 def recomm_books(title):
     idx = indices1[title]
-    cosine_sim_corpus = cosine_similarity(tfidf_matrix_corpus, tfidf_matrix_corpus)
     sim_scores = list(enumerate(cosine_sim_corpus[idx]))
     sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     sim_scores = sim_scores[1:21]
