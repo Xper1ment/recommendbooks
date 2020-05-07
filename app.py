@@ -11,7 +11,7 @@ CORS(app)
 
 @app.errorhandler(404)
 def resource_not_found(e):
-    return jsonify(error=str(e)), 404
+    return jsonify(error=e), 404
 
 @app.route('/')
 
@@ -65,7 +65,7 @@ def recommend_books():
     title = request.args.get("title", None)
     result = recomm_books(title)
     if result == None:
-        return jsonify({"error_code":"404" , "message":"No title found"})
+        return resource_not_found('Resource not found')
     else:
         return jsonify(result)
 
